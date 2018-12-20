@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\validators\MyValidator;
 use Yii;
 use yii\base\Model;
 
@@ -25,6 +26,8 @@ class ContactForm extends Model
         return [
             // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
+            ['body', 'safe'],
+            ['name', MyValidator::class],
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
