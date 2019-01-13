@@ -1,5 +1,15 @@
-<h1><?= $task->name ?></h1>
-<p>Исполнитель: <?= $task->user ?></p>
-<p>Тип задачи: <?= $task->type ?></p>
-<p>Статус задачи: <?= $task->status ?></p>
-<p>Дата начала: <?= $task->dateStart ?></p>
+<?
+
+$model = \app\models\tables\Tasks::findOne(1);
+
+
+echo \yii\widgets\ListView::widget([
+    'dataProvider' => $dataProvider,
+    'itemView' => function ($model) {
+        return \app\widgets\TaskPreview::widget(['model' => $model]);
+    },
+    'summary' => false,
+    'options' => [
+        'class' => 'preview-container'
+    ]
+]);

@@ -3,6 +3,7 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "users".
@@ -17,7 +18,8 @@ use Yii;
 class Users extends \yii\db\ActiveRecord
 {
     const SCENARIO_AUTH = 'auth';
-   /**
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -59,14 +61,24 @@ class Users extends \yii\db\ActiveRecord
 
     public function fields()
     {
-        if ($this->scenario == self::SCENARIO_AUTH){
+        if ($this->scenario == self::SCENARIO_AUTH) {
             return [
                 'id',
-                'username'=>'login',
+                'username' => 'login',
                 'password'
             ];
-      }
+        }
         return parent::fields();
 
+    }
+
+    public static function getUsersList()
+    {
+        $users = static::find()
+            ->select(['id','login'])
+            ->asArray()
+            ->all();
+
+        return   ArrayHelper::map($users,'id','login');
     }
 }

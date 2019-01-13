@@ -70,6 +70,8 @@ class AdminUsersController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+
+
         return $this->render('create', [
             'model' => $model,
         ]);

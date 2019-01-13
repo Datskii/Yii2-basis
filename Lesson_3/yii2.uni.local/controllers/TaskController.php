@@ -3,22 +3,30 @@
 namespace app\controllers;
 
 
+use app\models\tables\Tasks;
+use app\models\tables\Users;
 use app\models\Task;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class TaskController extends Controller
 {
     public function actionIndex()
     {
-        $task = new Task();
-        $task->load([
-            'Task' => ['user' => 'Игорь Федосенко',
-            'name' => 'Валидатор',
-            'description' => 'Создать класс валидатора.',
-            'status' => 1,
-            'type' => 1,
-            'dateStart' => '2018-12-16 10:00:00']
+        $dataProvider = new ActiveDataProvider([
+            'query' => Tasks::find()
         ]);
-        return $this->render('index', ['task' => $task]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
+    public function actionOne($id){
+        $model =  Tasks::findOne($id);
+
+        return $this->render('one', [
+            'one' => $model
+        ]);
     }
 }

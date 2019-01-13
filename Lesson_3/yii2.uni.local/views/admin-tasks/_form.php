@@ -19,10 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
         <?= $form->field($model, 'responsible_id')
-            ->dropDownList(
-                yii\helpers\ArrayHelper::map
-                (\app\models\tables\Tasks::find()
-                    ->all(),'id','name'))
+            ->dropDownList(\app\models\tables\Users::getUsersList())
         ?>
 
 
